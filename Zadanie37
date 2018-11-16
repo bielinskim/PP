@@ -1,0 +1,30 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{   int ilosc;
+    int min;
+    int element;
+    int polozenie;
+
+
+    cout<<"Najmniejsza liczba ciagu oraz wskazanie jej polozenia" <<endl;
+    cout<<"Ilosc elementow ciagu:";
+    cin>>ilosc;
+
+    for(int i=0; i<ilosc; i++)
+     {
+       cout<<"Wypisz wszystkie elementy ciagu"<<endl;
+       cin>>element;
+       if(i==0||element<min)
+       {
+          min = element;
+          polozenie = i+1;
+
+       }
+     }
+    cout<<"Najmniejsza liczba ciagu:"<< min <<endl;
+    cout<<"Jej polozenie w ciagu:" << polozenie <<endl;
+    return 0;
+}
