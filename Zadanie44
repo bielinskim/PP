@@ -1,0 +1,43 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int ilosc=0;
+    int element=0;
+    int suma=0;
+    int element1=0;
+    int najwieksza_suma=0;
+    int najwieksza;
+
+    cout<<"Liczba w ciagu majaca najwieksza sume cyfr" <<endl;
+    cout<<"Ilosc elementow ciagu:";
+    cin>>ilosc;
+
+    for(int i=0; i<ilosc; i++)
+        {
+        cout<<"Wprowadz element ciagu:";
+        cin>>element;
+
+        element1=element;
+
+        while(element1>0)
+           {
+            suma += element1%10;
+            element1 = element1/10;
+           }
+
+        if(suma>najwieksza_suma)
+           {
+            najwieksza_suma=suma;
+            najwieksza=element;
+           }
+        suma=0;
+        }
+
+        cout<<"Liczba posiadajaca najwieksza sume cyfr:"<<najwieksza;
+
+
+        return 0;
+}
