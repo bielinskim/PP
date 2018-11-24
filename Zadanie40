@@ -1,0 +1,44 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n = 0;
+    int iloczyn=1;
+    int suma = 0;
+    int cyfra = 0;
+    int x;
+    int wynik =0;
+    int brak=0;
+
+    cout <<"Program wypisujacy liczby ktorych suma cyfr jest rowna iloczynowi cyfr, lub -1 gdy takich liczb nie ma. Z zakresu od 11 do n, n=>11" << endl;
+    cout <<"Wprowadz n:"<<endl;
+    cin >> n;
+    for(int i=11; i<=n; i++)
+       {
+        x=i;
+        while(x>0)
+           {
+             cyfra=x%10;
+             iloczyn=iloczyn*cyfra;
+             suma+=cyfra;
+             x=x/10;
+           }
+        if(suma==iloczyn)
+        {
+         wynik=i;
+         brak=wynik;
+         cout<<"Suma cyfr = iloczyn cyfr:"<<endl;
+         cout << wynik << endl;
+        }
+       suma =0;
+       iloczyn =1;
+       wynik =0;
+        }
+      if(brak==0)
+       cout << endl;
+       cout << "-1" <<endl;
+
+    return 0;
+}
