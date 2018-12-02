@@ -1,0 +1,22 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+    srand(time(NULL));
+    cout << "Program ktory dla 10 generowanych losowo liczb rzeczywistych z zakresu -10..10, wypisze najwieksze liczby calkowite mniejsze od wylosowanych liczb rzeczywistych" << endl;
+
+    for(int i=0; i<10; i++)
+    {
+        float x=-10.0+20.0*rand()/(RAND_MAX);
+        cout <<"Wylosowana liczba rzeczywista:" << x << endl;
+        x=floor(x);
+        cout <<"Najwieksza liczba calkowita mniejsza od wylosowanej:"<< x << endl;
+        cout<<endl;
+    }
+    return 0;
+}
