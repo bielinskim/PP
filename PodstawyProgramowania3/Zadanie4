@@ -1,0 +1,19 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    string napis;
+    napis = "  ala ma kota  ";
+    for(int i=0; i<napis.length(); i++)
+    {
+        if(napis.at(i)==' ')
+        {
+            napis.erase(i,1);
+            napis.insert(i,"*");
+        }
+    }
+    cout << napis << endl;
+    return 0;
+}
