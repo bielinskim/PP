@@ -4,6 +4,8 @@ using namespace std;
 
 int main()
 {
+    cout << "Program zamieniajacy znaki odstepu na *" << endl;
+    cout << "Napis: '  ala ma kota  '" << endl;
     string napis;
     napis = "  ala ma kota  ";
     for(int i=0; i<napis.length(); i++)
