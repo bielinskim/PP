@@ -1,0 +1,44 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    int liczbamalych=0;
+    int liczbaa=0;
+    int liczbaduzych=0;
+    string napis;
+    cout << "Program dokonujacy analizy ciagu znakow:" << endl;
+    cout<<"Wprowadz ciag znakow"<<endl;
+    cin>>napis;
+    for (int i=0; i<napis.size(); i++)
+    {
+        if (napis.at(i)<=122&&napis.at(i)>=97)
+        {
+            liczbamalych++;
+        }
+        if(napis.at(i)==97)
+          {
+            liczbaa++;
+          }
+        if(napis.at(i)<=90&&napis.at(i)>=65)
+        {
+            liczbaduzych++;
+        }
+    }
+        if (liczbamalych==napis.size())
+        {
+            cout<<"Liczba malych liter a w ciagu"<<endl;
+            cout<<liczbaa<<endl;
+        }
+        else if (liczbaduzych==napis.size())
+        {
+            cout<<"Ciag duzych liter"<<endl;
+        }
+        else
+        {
+            cout<<"Ciag znakow mieszanych"<<endl;
+        }
+    return 0;
+}
