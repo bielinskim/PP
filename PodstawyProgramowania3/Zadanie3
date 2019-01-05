@@ -1,0 +1,54 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+int main()
+{
+    char znak;
+    cout << "Program klasyfikujacy klawisze naciskane na klawiaturze" << endl;
+    znak=getch();
+    if(znak>=97&&znak<=122)
+    {
+        cout<<"Mala litera"<<endl;
+
+    }
+    else if(znak>=65&&znak<=90)
+    {
+        cout<<"Duza litera"<<endl;
+    }
+    else if(znak>=48&&znak<=57)
+    {
+        cout<<"Cyfra"<<endl;
+    }
+    else if(znak==13)
+    {
+        cout<<"klawisz ENTER"<<endl;
+    }
+    else if(znak==27)
+    {
+        cout<<"klawisz ESC"<<endl;
+    }
+    else if(znak==-32)
+    {
+        znak=getch();
+        if(znak==77)
+        {
+            cout<<"Strzalka w prawo"<<endl;
+        }
+        if(znak==75)
+            cout<<"Strzalka w lewo"<<endl;
+    }
+    else if(znak==0)
+    {
+        znak=getch();
+        if(znak==59)
+        {
+            cout<<"klawisz F1"<<endl;
+        }
+    }
+    else
+    {
+        cout<<"Inny klawisz"<<endl;
+    }
+    return 0;
+}
