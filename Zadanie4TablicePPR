@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+    float a[100][100];
+    int n, sym=0, i, j;
+    float swsz =0, smld =0, smpg=0, sums=0;
+    cout<<"Podaj rozmiar tablicy kwadratowej: "<<endl;
+    cout<<"n="; cin>>n;
+
+    for(int i=1; i<=n; i++)
+    {
+        for(int j=1; j<=n; j++)
+         {
+        cout<<"Podaj ["<<i<<"]["<<j<<"]:";
+        cin>>a[i][j];
+         }
+          }
+    for(int i=1; i<=n; i++)
+    {
+        for(int j=1; j<=n; j++)
+         {
+        if(a[i][j]==a[j][i])
+        {
+            sym+=1;
+        }
+         }
+          }
+    if(n*n==sym)
+        cout <<"Tablica jest symetryczna"<<endl;
+    else
+        cout << sym <<"Tablica nie jest symetryczna"<<endl;
+    cout<<"Wprowadz indeksy elementu [i][j]:"<<endl;
+    cin>>i>>j;
+    sums=a[i-1][j-1]+a[i][j-1]+a[i+1][j-1]+a[i-1][j]+a[i+1][j]+a[i-1][j+1]+a[i][j+1]+a[i+1][j+1];
+    cout<<"Suma sasiednich elementow podanych indeksow [i][j]:"<<sums<<endl;
+    for(int i=1; i<=n; i++)
+    {
+        for(int j=1; j<=n; j++)
+        swsz+=a[i][j];
+
+    }
+    for(int i=1; i<=n; i++)
+    {
+    int j=2;
+    {
+        for(j++; j<=n; j++)
+            smld+=a[i][j];
+    }
+    }
+    smpg=swsz-smld;
+    cout<<"Suma macierzy lewej dolnej trojkatnej(bez diagonali):"<<smld<<endl<<
+    "Suma macierzy prawej gornej trojkatnej(z diagonala)"<<smpg<<endl;
+    return 0;
+}
