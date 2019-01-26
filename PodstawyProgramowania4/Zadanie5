@@ -1,0 +1,54 @@
+#include <iostream>
+
+using namespace std;
+
+struct lista
+{
+    char przedmioty[100];
+    int ocena;
+    float sr;
+};
+struct student
+{
+    char imie[20];
+    char nazwisko[30];
+    char kierunek[30];
+    lista lista_przedmiotow;
+};
+
+int main()
+{
+
+    student baza[1000];
+    int n;
+    cout<<"Ilu studentow chcesz wprowadzic do bazy?"<<endl;
+    cin>>n;
+    for(int i=0; i<n; i++)
+    {
+        int sum = 0;
+        cout<<"Podaj dane "<<i+1<<"-ego studenta:"<<endl;
+        cout<<"Imie:"<<endl;cin>>baza[i].imie;
+        cout<<"Nazwisko:"<<endl;cin>>baza[i].nazwisko;
+        cout<<"Kierunek:"<<endl;cin>>baza[i].kierunek;
+        cout<<"Podaj liczbe przedmiotow:"<<endl;int m;cin>>m;
+        for(int j=0; j<m; j++)
+        {
+        cout<<"Wprowadz przedmioty:"<<endl;cin>>baza[i].lista_przedmiotow.przedmioty;
+        cout<<"Podaj ocene:"<<endl;cin>>baza[i].lista_przedmiotow.ocena;
+        sum+=baza[i].lista_przedmiotow.ocena;
+        baza[i].lista_przedmiotow.sr=sum/m;
+        }
+
+    }
+    float srh;
+    cout<<"Wyszukaj student-a/ow ze srednia wieksza niz podana:"<<endl;cin>>srh;
+    for(int i=0; i<n; i++)
+    {
+        if(srh<=baza[i].lista_przedmiotow.sr)
+        {
+            cout<<"Student:"<<baza[i].imie<<" "<<baza[i].nazwisko<<" : "<<baza[i].lista_przedmiotow.sr<<endl;
+        }
+    }
+
+    return 0;
+}
