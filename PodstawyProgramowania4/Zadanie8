@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int main()
+{
+    int n,m;
+    cout<<"Wprowadz rozmiar tablicy [n][m]:"<<endl;
+    cin>>n>>m;
+    int *x;
+    int tablica[n][m];
+    int xmax=0, indeksi, indeksj;
+    x=&tablica[0][0];
+    srand(time(NULL));
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<m; j++)
+        {
+        *(x)=0+201*rand()/(RAND_MAX);
+        if((*x)>xmax)
+        {
+            xmax=(*x);
+            indeksi=i;
+            indeksj=j;
+        }
+
+        }
+
+    }
+    cout << "Najwiekszy element tablicy: " << xmax <<" znajduje sie na miejscu: [" << indeksi<< "][" << indeksj<<"]"<< endl;
+    return 0;
+}
