@@ -1,0 +1,32 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+
+    cout<<"Program usuwajacy powtarzajace sie w lancuchu znakow spacje i zastapi je pojedyncza spacja"<<endl;
+    cout<<"Wprowadz lancuch znakow"<<endl;
+    string napis;
+    getline(cin, napis);
+    int x=0;
+    for(int i=1; i<=napis.size(); i++)
+    {
+        if(napis.at(i)==' ')
+        {
+            x++;
+            if(1<x)
+            {
+
+               napis.erase(i,x);
+            }
+
+        }
+        else
+        {
+          x=0;
+        }
+    }
+    cout<<napis;
+    return 0;
+}
