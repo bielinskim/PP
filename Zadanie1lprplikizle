@@ -1,0 +1,68 @@
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+
+using namespace std;
+
+void wprowadz(string nazwaPliku)
+{
+      string tekst;
+      cout<<"Wprowadz dane do pliku:"<<endl;
+      ofstream plikZapis;
+      plikZapis.open(nazwaPliku.c_str(), ios::out);
+	  cin>>tekst;
+      plikZapis<<tekst;
+      plikZapis.close();
+      system("PAUSE");
+
+}
+void czytaj(string nazwaPliku)
+{
+
+	ifstream plikOdczyt;
+    plikOdczyt.open(nazwaPliku.c_str(), ios::in);
+    string tekst;
+    if (plikOdczyt.good())
+	     {
+	     while(!plikOdczyt.eof())
+	             {
+	                 getline(plikOdczyt,tekst);
+	                 //plikOdczyt>>tekst;
+	                 cout<<tekst;
+	             }
+	   plikOdczyt.close();
+	   }
+	   else
+       cout <<"brak pliku"<<endl;
+       system("PAUSE");
+}
+
+
+int main()
+{
+    int n =0;
+    cout<<"Program wczytujacy i zapisujacy dane z pliku" << endl;
+    while(1!=0)
+    {
+    cout<<"Co chcesz zrobic?(Wprowadz numer funkcji)"<<endl;
+    cout<<"1. Zapisz"<<endl;
+    cout<<"2. Odczytaj"<<endl;
+    cin>>n;
+    cout<<endl;
+    if(n==1)
+    {
+    wprowadz("plik.txt");
+      n=0;
+    }
+    else if(n==2)
+    {
+    czytaj("plik.txt");
+       n=0;
+    }
+    }
+    cout<<endl;
+
+    return 0;
+
+}
+
