@@ -1,0 +1,244 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+struct Baza
+{
+   string imie, nazwisko, miejscowosc;
+   int rok_urodzenia;
+};
+
+int rozmiar(char *in);
+void wczytaj(char *in, Baza *s, int n);
+void wypisz(Baza *s, int n);
+void sort_imie(Baza *s, int n);
+void sort_nazwisko(Baza *s, int n);
+void sort_miejscowosc(Baza *s, int n);
+void sort_rok(Baza *s, int n);
+
+int main()
+{
+    cout<<"||*****************************************************************||"<<endl;
+    cout<<"||System wspomagajacy sortowanie bazy danych wedlug zadanego klucza||"<<endl;
+    cout<<"||*****************************************************************||"<<endl;
+    cout<<"||***********************Mateusz Bielinski*************************||"<<endl;
+    cout<<"||*****************************************************************||"<<endl;
+    int z;
+
+    //argv[1]="dane.txt";
+    do
+    {
+    cout<<"Co chcesz zrobic?"<<endl;
+    cout<<"1. Wypisz baze danych"<<endl;
+    cout<<"2. Sortuj wedlug imion"<<endl;
+    cout<<"3. Sortuj wedlug nazwisk"<<endl;
+    cout<<"4. Sortuj wedlug miejsca zamieszkania"<<endl;
+    cout<<"5. Sortuj wedlug roku urodzenia"<<endl;
+    cout<<"6. Zakoncz program"<<endl;
+
+    cout<<"Wybierz:";cin>>z;
+
+    switch(z)
+    {
+    case 1:
+        {
+            int n=rozmiar("dane.txt");
+            Baza *s = new Baza[n];
+            wczytaj("dane.txt", s, n);
+            wypisz(s, n);
+            delete [] s;
+            break;
+        }
+    case 2:
+        {
+            cout<<"*****************************************************************"<<endl;
+            cout<<"Baza danych posortowana wedlug imion:"<<endl;
+            cout<<endl;
+            int n=rozmiar("dane.txt");
+            Baza *s = new Baza[n];
+            wczytaj("dane.txt", s, n);
+            sort_imie(s, n);
+            wypisz(s, n);
+            cout<<endl;
+            cout<<"*****************************************************************"<<endl;
+            delete [] s;
+            break;
+        }
+    case 3:
+        {
+            cout<<"*****************************************************************"<<endl;
+            cout<<"Baza danych posortowana wedlug nazwisk:"<<endl;
+            cout<<endl;
+            int n=rozmiar("dane.txt");
+            Baza *s = new Baza[n];
+            wczytaj("dane.txt", s, n);
+            sort_nazwisko(s, n);
+            wypisz(s, n);
+            cout<<endl;
+            cout<<"*****************************************************************"<<endl;
+            delete [] s;
+            break;
+        }
+    case 4:
+        {
+            cout<<"*****************************************************************"<<endl;
+            cout<<"Baza danych posortowana wedlug roku miejsca zamieszkania:"<<endl;
+            cout<<endl;
+            int n=rozmiar("dane.txt");
+            Baza *s = new Baza[n];
+            wczytaj("dane.txt", s, n);
+            sort_miejscowosc(s, n);
+            wypisz(s, n);
+            cout<<endl;
+            cout<<"*****************************************************************"<<endl;
+            delete [] s;
+            break;
+        }
+    case 5:
+        {
+            cout<<"*****************************************************************"<<endl;
+            cout<<"Baza danych posortowana wedlug roku urodzenia:"<<endl;
+            cout<<endl;
+            int n=rozmiar("dane.txt");
+            Baza *s = new Baza[n];
+            wczytaj("dane.txt", s, n);
+            sort_rok(s, n);
+            wypisz(s, n);
+            cout<<endl;
+            cout<<"*****************************************************************"<<endl;
+            delete [] s;
+            break;
+        }
+    case 6:
+        {
+            cout<<endl;
+            cout<<"Milego dnia!"<<endl;
+        }
+    }
+    cout<<endl;
+    }while(z!=6);
+
+    return 0;
+}
+
+int rozmiar(char *in)
+{
+    string imie, nazwisko, miejscowosc;
+    int rok_urodzenia;
+    int rozm = 0;
+    ifstream plik;
+    plik.open(in);
+    if(plik.good())
+    {
+    while(!plik.eof())
+    {
+        plik>>imie;
+        plik>>nazwisko;
+        plik>>miejscowosc;
+        plik>>rok_urodzenia;
+
+        rozm+=1;
+    }
+    }
+    else
+        cout<<"Wczytywanie pliku nie powiodlo sie"<<endl;
+    plik.close();
+    return rozm;
+}
+
+void wczytaj(char *in, Baza *s, int n)
+{
+    ifstream plik;
+    plik.open(in);
+    if(plik.good())
+    {
+
+        for(int i=0; i<n; i++)
+        {
+            plik>>s[i].imie;
+            plik>>s[i].nazwisko;
+            plik>>s[i].miejscowosc;
+            plik>>s[i].rok_urodzenia;
+        }
+    }
+     else
+        cout<<"Wczytywanie pliku nie powiodlo sie"<<endl;
+      plik.close();
+}
+void wypisz(Baza *s, int n)
+{
+    for(int i=0; i<n; i++)
+    {
+            cout<<s[i].imie<<" ";
+            cout<<s[i].nazwisko<<" ";
+            cout<<s[i].miejscowosc<<" ";
+            cout<<s[i].rok_urodzenia<<" ";
+            cout<<endl;
+    }
+}
+void sort_imie(Baza *s, int n)
+{
+    Baza t;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<n-1; j++)
+        {
+            if(s[j].imie>s[j+1].imie)
+            {
+            t = s[j+1];
+            s[j+1]=s[j];
+            s[j] = t;
+            }
+        }
+    }
+}
+void sort_nazwisko(Baza *s, int n)
+{
+    Baza t;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<n-1; j++)
+        {
+            if(s[j].nazwisko>s[j+1].nazwisko)
+            {
+            t = s[j+1];
+            s[j+1]=s[j];
+            s[j] = t;
+            }
+        }
+    }
+}
+void sort_miejscowosc(Baza *s, int n)
+{
+    Baza t;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<n-1; j++)
+        {
+            if(s[j].miejscowosc>s[j+1].miejscowosc)
+            {
+            t = s[j+1];
+            s[j+1]=s[j];
+            s[j] = t;
+            }
+        }
+    }
+}
+void sort_rok(Baza *s, int n)
+{
+    Baza t;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<n-1; j++)
+        {
+            if(s[j].rok_urodzenia>s[j+1].rok_urodzenia)
+            {
+            t = s[j+1];
+            s[j+1]=s[j];
+            s[j] = t;
+            }
+        }
+    }
+}
