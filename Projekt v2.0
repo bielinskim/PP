@@ -1,0 +1,428 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+struct Baza
+{
+   string imie, nazwisko, miejscowosc;
+   int rok_urodzenia;
+};
+
+int rozmiar(string in);
+void wypisz(int n);
+void sort_imie(int n);
+void sort_nazwisko(int n);
+void sort_miejscowosc(int n);
+void sort_rok(int n);
+
+int main()
+{
+    cout<<"||*****************************************************************||"<<endl;
+    cout<<"||System wspomagajacy sortowanie bazy danych wedlug zadanego klucza||"<<endl;
+    cout<<"||*****************************************************************||"<<endl;
+    cout<<"||***********************Mateusz Bielinski*************************||"<<endl;
+    cout<<"||*****************************************************************||"<<endl;
+    int z;
+
+    do
+    {
+    cout<<"Co chcesz zrobic?"<<endl;
+    cout<<"1. Wypisz baze danych"<<endl;
+    cout<<"2. Sortuj wedlug imion"<<endl;
+    cout<<"3. Sortuj wedlug nazwisk"<<endl;
+    cout<<"4. Sortuj wedlug miejsca zamieszkania"<<endl;
+    cout<<"5. Sortuj wedlug roku urodzenia"<<endl;
+    cout<<"6. Zakoncz program"<<endl;
+
+    cout<<"Wybierz:";cin>>z;
+    cout<<endl;
+
+    switch(z)
+    {
+    case 1:
+        {
+            int n=rozmiar("dane1.txt");
+            wypisz(n);
+            break;
+        }
+    case 2:
+        {
+            cout<<"*****************************************************************"<<endl;
+            cout<<"Baza danych posortowana wedlug imion:"<<endl;
+            cout<<endl;
+            int n=rozmiar("dane1.txt");
+            sort_imie(n);
+            wypisz(n);
+            cout<<endl;
+            cout<<"*****************************************************************"<<endl;
+            break;
+        }
+    case 3:
+        {
+            cout<<"*****************************************************************"<<endl;
+            cout<<"Baza danych posortowana wedlug nazwisk:"<<endl;
+            cout<<endl;
+            int n=rozmiar("dane1.txt");
+            sort_nazwisko(n);
+            wypisz(n);
+            cout<<endl;
+            cout<<"*****************************************************************"<<endl;
+            break;
+        }
+    case 4:
+        {
+            cout<<"*****************************************************************"<<endl;
+            cout<<"Baza danych posortowana wedlug roku miejsca zamieszkania:"<<endl;
+            cout<<endl;
+            int n=rozmiar("dane1.txt");
+            sort_miejscowosc(n);
+            wypisz(n);
+            cout<<endl;
+            cout<<"*****************************************************************"<<endl;
+            break;
+        }
+    case 5:
+        {
+            cout<<"*****************************************************************"<<endl;
+            cout<<"Baza danych posortowana wedlug roku urodzenia:"<<endl;
+            cout<<endl;
+            int n=rozmiar("dane1.txt");
+            sort_rok(n);
+            wypisz(n);
+            cout<<endl;
+            cout<<"*****************************************************************"<<endl;
+            break;
+        }
+    case 6:
+        {
+            cout<<endl;
+            cout<<"Milego dnia!"<<endl;
+        }
+    }
+    cout<<endl;
+    }while(z!=6);
+
+    return 0;
+}
+
+int rozmiar(string in)
+{
+    string imie, nazwisko, miejscowosc;
+    int rok_urodzenia;
+    int rozm = 0;
+    ifstream plik;
+    plik.open(in.c_str());
+    if(plik.good())
+    {
+    while(!plik.eof())
+    {
+        plik>>imie;
+        plik>>nazwisko;
+        plik>>miejscowosc;
+        plik>>rok_urodzenia;
+
+        rozm+=1;
+    }
+    }
+    else
+        cout<<"Wczytywanie pliku nie powiodlo sie"<<endl;
+    plik.close();
+    return rozm;
+}
+void wypisz(int n)
+{
+    Baza x;
+    fstream dane1;
+    dane1.open("dane1.txt");
+    for(int i=0; i<n-1; i++)
+    {
+            dane1>>x.imie;
+            dane1>>x.nazwisko;
+            dane1>>x.miejscowosc;
+            dane1>>x.rok_urodzenia;
+            cout<<x.imie<<" ";
+            cout<<x.nazwisko<<" ";
+            cout<<x.miejscowosc<<" ";
+            cout<<x.rok_urodzenia<<" ";
+            cout<<endl;
+    }
+    dane1.close();
+}
+void sort_imie(int n)
+{
+    Baza x;
+    Baza y;
+    fstream dane1;
+    fstream dane2;
+    dane1.open("dane1.txt");
+    dane2.open("dane2.txt");
+    if(dane1.good())
+    {
+    for(int i=0; i<n-1; i++)
+    {
+      dane1>>x.imie;
+      dane1>>x.nazwisko;
+      dane1>>x.miejscowosc;
+      dane1>>x.rok_urodzenia;
+      for(int j=0; j<n-2; j++)
+        {
+        dane1>>y.imie;
+        dane1>>y.nazwisko;
+        dane1>>y.miejscowosc;
+        dane1>>y.rok_urodzenia;
+         if(x.imie>=y.imie)
+          {
+             dane2<<y.imie<<" ";
+             dane2<<y.nazwisko<<" ";
+             dane2<<y.miejscowosc<<" ";
+             dane2<<y.rok_urodzenia<<endl;
+          }
+         else
+         {
+            dane2<<x.imie<<" ";
+            dane2<<x.nazwisko<<" ";
+            dane2<<x.miejscowosc<<" ";
+            dane2<<x.rok_urodzenia<<endl;
+            x.imie=y.imie;
+            x.nazwisko=y.nazwisko;
+            x.miejscowosc=y.miejscowosc;
+            x.rok_urodzenia=y.rok_urodzenia;
+          }
+        }
+        dane2<<x.imie<<" ";
+        dane2<<x.nazwisko<<" ";
+        dane2<<x.miejscowosc<<" ";
+        dane2<<x.rok_urodzenia<<endl;
+
+        dane1.close();
+        dane2.close();
+        dane1.open("dane1.txt");
+        dane2.open("dane2.txt");
+       for(int i=0; i<n-1; i++)
+        {
+         Baza tmp;
+         dane2>>tmp.imie;
+         dane2>>tmp.nazwisko;
+         dane2>>tmp.miejscowosc;
+         dane2>>tmp.rok_urodzenia;
+         dane1<<tmp.imie<<" ";
+         dane1<<tmp.nazwisko<<" ";
+         dane1<<tmp.miejscowosc<<" ";
+         dane1<<tmp.rok_urodzenia<<endl;
+        }
+        dane1.close();
+        dane2.close();
+        dane1.open("dane1.txt");
+        dane2.open("dane2.txt");
+        }
+    }
+}
+void sort_nazwisko(int n)
+{
+    Baza x;
+    Baza y;
+    fstream dane1;
+    fstream dane2;
+    dane1.open("dane1.txt");
+    dane2.open("dane2.txt");
+    if(dane2.good())
+    {
+    for(int i=0; i<n-1; i++)
+    {
+      dane1>>x.imie;
+      dane1>>x.nazwisko;
+      dane1>>x.miejscowosc;
+      dane1>>x.rok_urodzenia;
+        for(int j=0; j<n-2; j++)
+        {
+        dane1>>y.imie;
+        dane1>>y.nazwisko;
+        dane1>>y.miejscowosc;
+        dane1>>y.rok_urodzenia;
+         if(x.nazwisko>=y.nazwisko)
+          {
+             dane2<<y.imie<<" ";
+             dane2<<y.nazwisko<<" ";
+             dane2<<y.miejscowosc<<" ";
+             dane2<<y.rok_urodzenia<<endl;
+          }
+         else
+         {
+            dane2<<x.imie<<" ";
+            dane2<<x.nazwisko<<" ";
+            dane2<<x.miejscowosc<<" ";
+            dane2<<x.rok_urodzenia<<endl;
+            x.imie=y.imie;
+            x.nazwisko=y.nazwisko;
+            x.miejscowosc=y.miejscowosc;
+            x.rok_urodzenia=y.rok_urodzenia;
+          }
+        }
+        dane2<<x.imie<<" ";
+        dane2<<x.nazwisko<<" ";
+        dane2<<x.miejscowosc<<" ";
+        dane2<<x.rok_urodzenia<<endl;
+
+        dane1.close();
+        dane2.close();
+        dane1.open("dane1.txt");
+        dane2.open("dane2.txt");
+       for(int i=0; i<n-1; i++)
+        {
+         Baza tmp;
+         dane2>>tmp.imie;
+         dane2>>tmp.nazwisko;
+         dane2>>tmp.miejscowosc;
+         dane2>>tmp.rok_urodzenia;
+         dane1<<tmp.imie<<" ";
+         dane1<<tmp.nazwisko<<" ";
+         dane1<<tmp.miejscowosc<<" ";
+         dane1<<tmp.rok_urodzenia<<endl;
+        }
+        dane1.close();
+        dane2.close();
+        dane1.open("dane1.txt");
+        dane2.open("dane2.txt");
+        }
+    }
+}
+void sort_miejscowosc(int n)
+{
+    Baza x;
+    Baza y;
+    fstream dane1;
+    fstream dane2;
+    dane1.open("dane1.txt");
+    dane2.open("dane2.txt");
+    if(dane2.good())
+    {
+    for(int i=0; i<n-1; i++)
+    {
+      dane1>>x.imie;
+      dane1>>x.nazwisko;
+      dane1>>x.miejscowosc;
+      dane1>>x.rok_urodzenia;
+        for(int j=0; j<n-2; j++)
+        {
+        dane1>>y.imie;
+        dane1>>y.nazwisko;
+        dane1>>y.miejscowosc;
+        dane1>>y.rok_urodzenia;
+         if(x.miejscowosc>=y.miejscowosc)
+          {
+             dane2<<y.imie<<" ";
+             dane2<<y.nazwisko<<" ";
+             dane2<<y.miejscowosc<<" ";
+             dane2<<y.rok_urodzenia<<endl;
+          }
+         else
+         {
+            dane2<<x.imie<<" ";
+            dane2<<x.nazwisko<<" ";
+            dane2<<x.miejscowosc<<" ";
+            dane2<<x.rok_urodzenia<<endl;
+            x.imie=y.imie;
+            x.nazwisko=y.nazwisko;
+            x.miejscowosc=y.miejscowosc;
+            x.rok_urodzenia=y.rok_urodzenia;
+          }
+        }
+        dane2<<x.imie<<" ";
+        dane2<<x.nazwisko<<" ";
+        dane2<<x.miejscowosc<<" ";
+        dane2<<x.rok_urodzenia<<endl;
+
+        dane1.close();
+        dane2.close();
+        dane1.open("dane1.txt");
+        dane2.open("dane2.txt");
+       for(int i=0; i<n-1; i++)
+        {
+         Baza tmp;
+         dane2>>tmp.imie;
+         dane2>>tmp.nazwisko;
+         dane2>>tmp.miejscowosc;
+         dane2>>tmp.rok_urodzenia;
+         dane1<<tmp.imie<<" ";
+         dane1<<tmp.nazwisko<<" ";
+         dane1<<tmp.miejscowosc<<" ";
+         dane1<<tmp.rok_urodzenia<<endl;
+        }
+        dane1.close();
+        dane2.close();
+        dane1.open("dane1.txt");
+        dane2.open("dane2.txt");
+        }
+    }
+}
+void sort_rok(int n)
+{
+    Baza x;
+    Baza y;
+    fstream dane1;
+    fstream dane2;
+    dane1.open("dane1.txt");
+    dane2.open("dane2.txt");
+    if(dane2.good())
+    {
+    for(int i=0; i<n-1; i++)
+    {
+      dane1>>x.imie;
+      dane1>>x.nazwisko;
+      dane1>>x.miejscowosc;
+      dane1>>x.rok_urodzenia;
+        for(int j=0; j<n-2; j++)
+        {
+        dane1>>y.imie;
+        dane1>>y.nazwisko;
+        dane1>>y.miejscowosc;
+        dane1>>y.rok_urodzenia;
+         if(x.rok_urodzenia>=y.rok_urodzenia)
+          {
+             dane2<<y.imie<<" ";
+             dane2<<y.nazwisko<<" ";
+             dane2<<y.miejscowosc<<" ";
+             dane2<<y.rok_urodzenia<<endl;
+          }
+         else
+         {
+            dane2<<x.imie<<" ";
+            dane2<<x.nazwisko<<" ";
+            dane2<<x.miejscowosc<<" ";
+            dane2<<x.rok_urodzenia<<endl;
+            x.imie=y.imie;
+            x.nazwisko=y.nazwisko;
+            x.miejscowosc=y.miejscowosc;
+            x.rok_urodzenia=y.rok_urodzenia;
+          }
+        }
+        dane2<<x.imie<<" ";
+        dane2<<x.nazwisko<<" ";
+        dane2<<x.miejscowosc<<" ";
+        dane2<<x.rok_urodzenia<<endl;
+
+        dane1.close();
+        dane2.close();
+        dane1.open("dane1.txt");
+        dane2.open("dane2.txt");
+       for(int i=0; i<n-1; i++)
+        {
+         Baza tmp;
+         dane2>>tmp.imie;
+         dane2>>tmp.nazwisko;
+         dane2>>tmp.miejscowosc;
+         dane2>>tmp.rok_urodzenia;
+         dane1<<tmp.imie<<" ";
+         dane1<<tmp.nazwisko<<" ";
+         dane1<<tmp.miejscowosc<<" ";
+         dane1<<tmp.rok_urodzenia<<endl;
+        }
+        dane1.close();
+        dane2.close();
+        dane1.open("dane1.txt");
+        dane2.open("dane2.txt");
+        }
+    }
+}
